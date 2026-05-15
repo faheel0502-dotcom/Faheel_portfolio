@@ -1,0 +1,218 @@
+.admin-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0a0e17;
+  color: #fff;
+  font-family: "Geist", sans-serif;
+}
+
+.admin-login-box {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.admin-login-box h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+  color: var(--accentColor, #5eead4);
+}
+
+.admin-input-group {
+  margin-bottom: 20px;
+}
+
+.admin-input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.admin-input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.admin-input-group input:focus {
+  outline: none;
+  border-color: var(--accentColor, #5eead4);
+}
+
+.admin-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--accentColor, #5eead4);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.admin-btn:hover {
+  background: #fff;
+}
+
+.admin-error {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff6b6b;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Dashboard Styles */
+.admin-dashboard {
+  display: flex;
+  height: 100vh;
+  background-color: #050810;
+  color: #fff;
+  font-family: "Geist", sans-serif;
+  overflow: hidden;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background: #0a0e17;
+  padding: 30px 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-sidebar h2 {
+  color: var(--accentColor, #5eead4);
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.admin-sidebar li {
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #aaa;
+}
+
+.admin-sidebar li:hover, .admin-sidebar li.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.logout-btn:hover {
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  border-color: transparent;
+}
+
+.admin-content {
+  flex-grow: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.admin-content h1 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.admin-card {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 30px;
+}
+
+.admin-form {
+  display: flex;
+  gap: 15px;
+}
+
+.admin-form input {
+  flex-grow: 1;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.admin-form .admin-btn {
+  width: auto;
+  padding: 0 30px;
+}
+
+.admin-table-container {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th, .admin-table td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin-table th {
+  background: rgba(0, 0, 0, 0.2);
+  color: #aaa;
+  font-weight: 500;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-btn-small {
+  background: transparent;
+  border: 1px solid var(--accentColor, #5eead4);
+  color: var(--accentColor, #5eead4);
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.admin-btn-small:hover {
+  background: var(--accentColor, #5eead4);
+  color: #000;
+}
