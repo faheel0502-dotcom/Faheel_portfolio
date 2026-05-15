@@ -51,18 +51,18 @@ app.get('/', (req, res) => {
   res.send('Portfolio Backend is running');
 });
 
-// Admin Login
-app.post('/api/admin/login', async (req, res) => {
+// Admin login
+app.post('/api/admin/login', (req, res) => {
   const { username, password } = req.body;
-  
-  const adminUser = process.env.ADMIN_USERNAME || 'admin';
-  const adminPass = process.env.ADMIN_PASSWORD || 'password123'; // In production, this should be hashed in DB
+  const adminUsername = process.env.ADMIN_USERNAME || 'faheel';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'faheelfaheel';
 
-  if (username === adminUser && password === adminPass) {
-    const token = jwt.sign({ username }, process.env.JWT_SECRET || 'portfolio_secret_key', { expiresIn: '1d' });
-    return res.json({ success: true, token });
+  if (username === adminUsername && password === adminPassword) {
+    const token = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET || 'fallback_secret', { expiresIn: '2h' });
+    res.json({ success: true, token });
+  } else {
+    res.status(401).json({ success: false, error: 'Invalid credentials' });
   }
-  return res.status(401).json({ success: false, message: 'Invalid credentials' });
 });
 
 // Example route to get all tech stack
