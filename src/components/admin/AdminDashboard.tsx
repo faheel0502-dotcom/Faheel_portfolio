@@ -45,7 +45,7 @@ const AdminDashboard = () => {
 
   const fetchTechData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/techstack");
+      const res = await fetch("https://faheel-portfolio.vercel.app/api/techstack");
       const data = await res.json();
       setTechData(data);
     } catch (err) {
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
 
   const fetchProfileData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/profile");
+      const res = await fetch("https://faheel-portfolio.vercel.app/api/profile");
       const data = await res.json();
       setProfileData(data);
     } catch (err) {
@@ -65,7 +65,7 @@ const AdminDashboard = () => {
 
   const fetchCareerData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/career");
+      const res = await fetch("https://faheel-portfolio.vercel.app/api/career");
       const data = await res.json();
       setCareerData(data);
     } catch (err) {
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
 
   const fetchProjectsData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/projects");
+      const res = await fetch("https://faheel-portfolio.vercel.app/api/projects");
       const data = await res.json();
       setProjectsData(data);
     } catch (err) {
@@ -87,7 +87,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     const token = localStorage.getItem("adminToken");
     try {
-      const res = await fetch("http://localhost:5000/api/admin/techstack", {
+      const res = await fetch("https://faheel-portfolio.vercel.app/api/admin/techstack", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     const token = localStorage.getItem("adminToken");
     try {
-      const res = await fetch("http://localhost:5000/api/admin/career", {
+      const res = await fetch("https://faheel-portfolio.vercel.app/api/admin/career", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -132,7 +132,7 @@ const AdminDashboard = () => {
   const handleDeleteCareer = async (id: number) => {
     const token = localStorage.getItem("adminToken");
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/career/${id}`, {
+      const res = await fetch(`https://faheel-portfolio.vercel.app/api/admin/career/${id}`, {
         method: "DELETE",
         headers: { 
           "Authorization": `Bearer ${token}`
@@ -152,7 +152,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     const token = localStorage.getItem("adminToken");
     try {
-      const url = editingProjectId ? `http://localhost:5000/api/admin/projects/${editingProjectId}` : "http://localhost:5000/api/admin/projects";
+      const url = editingProjectId ? `https://faheel-portfolio.vercel.app/api/admin/projects/${editingProjectId}` : "https://faheel-portfolio.vercel.app/api/admin/projects";
       const method = editingProjectId ? "PUT" : "POST";
       const res = await fetch(url, {
         method,
@@ -177,7 +177,7 @@ const AdminDashboard = () => {
   const handleDeleteProject = async (id: number) => {
     const token = localStorage.getItem("adminToken");
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/projects/${id}`, {
+      const res = await fetch(`https://faheel-portfolio.vercel.app/api/admin/projects/${id}`, {
         method: "DELETE",
         headers: { 
           "Authorization": `Bearer ${token}`
@@ -197,7 +197,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     const token = localStorage.getItem("adminToken");
     try {
-      const res = await fetch("http://localhost:5000/api/admin/profile", {
+      const res = await fetch("https://faheel-portfolio.vercel.app/api/admin/profile", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

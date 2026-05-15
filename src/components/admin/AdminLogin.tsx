@@ -11,7 +11,7 @@ const AdminLogin = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/api/admin/login", {
+      const res = await fetch("https://faheel-portfolio.vercel.app/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

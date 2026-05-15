@@ -144,7 +144,7 @@ const TechStack = () => {
 
   useEffect(() => {
     // Fetch dynamic tech stack from MySQL Backend
-    fetch("http://localhost:5000/api/techstack")
+    fetch("https://faheel-portfolio.vercel.app/api/techstack")
       .then(res => res.json())
       .then(data => {
         // Transform flat SQL rows into grouped categories

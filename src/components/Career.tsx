@@ -35,7 +35,7 @@ const Career = () => {
   ]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/career")
+    fetch("https://faheel-portfolio.vercel.app/api/career")
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {

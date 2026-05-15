@@ -57,7 +57,7 @@ const Work = () => {
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/projects")
+    fetch("https://faheel-portfolio.vercel.app/api/projects")
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
