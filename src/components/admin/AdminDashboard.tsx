@@ -14,7 +14,22 @@ const AdminDashboard = () => {
   // Example form states
   const [newTech, setNewTech] = useState({ name: "", category: "", url: "" });
   const [newCareer, setNewCareer] = useState({ role: "", company: "", date_range: "", description: "", sort_order: 0 });
-  const [newProject, setNewProject] = useState({ title: "", category: "", tools: "", image: "", link: "", sort_order: 0 });
+  const [newProject, setNewProject] = useState({ title: "", category: "", tools: "", image: "", github_link: "", live_link: "", sort_order: 0 });
+  const [editingProjectId, setEditingProjectId] = useState<number | null>(null);
+
+  const handleEditProjectClick = (project: any) => {
+    setEditingProjectId(project.id);
+    setNewProject({
+      title: project.title,
+      category: project.category,
+      tools: project.tools,
+      image: project.image,
+      github_link: project.github_link || "",
+      live_link: project.live_link || "",
+      sort_order: project.sort_order
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
@@ -137,8 +152,10 @@ const AdminDashboard = () => {
     e.preventDefault();
     const token = localStorage.getItem("adminToken");
     try {
-      const res = await fetch("http://localhost:5000/api/admin/projects", {
-        method: "POST",
+      const url = editingProjectId ? `http://localhost:5000/api/admin/projects/${editingProjectId}` : "http://localhost:5000/api/admin/projects";
+      const method = editingProjectId ? "PUT" : "POST";
+      const res = await fetch(url, {
+        method,
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
@@ -146,9 +163,10 @@ const AdminDashboard = () => {
         body: JSON.stringify(newProject),
       });
       if (res.ok) {
-        setNewProject({ title: "", category: "", tools: "", image: "", link: "", sort_order: 0 });
+        setNewProject({ title: "", category: "", tools: "", image: "", github_link: "", live_link: "", sort_order: 0 });
+        setEditingProjectId(null);
         fetchProjectsData();
-        setSuccessMessage("Project added!");
+        setSuccessMessage(editingProjectId ? "Project updated!" : "Project added!");
         setTimeout(() => setSuccessMessage(""), 2000);
       }
     } catch (err) {
@@ -418,15 +436,22 @@ const AdminDashboard = () => {
           <div>
             <h1>Manage Projects</h1>
             <div className="admin-card">
-              <h3>Add New Project</h3>
+              <h3>{editingProjectId ? "Edit Project" : "Add New Project"}</h3>
               <form onSubmit={handleAddProject} className="admin-form" style={{ flexWrap: 'wrap' }}>
                 <input style={{ width: '48%', flexGrow: 0 }} type="text" placeholder="Project Title" value={newProject.title} onChange={(e) => setNewProject({...newProject, title: e.target.value})} required />
                 <input style={{ width: '48%', flexGrow: 0 }} type="text" placeholder="Category (e.g. College Food Ordering App)" value={newProject.category} onChange={(e) => setNewProject({...newProject, category: e.target.value})} required />
                 <input style={{ width: '48%', flexGrow: 0 }} type="text" placeholder="Tools (e.g. React, Node.js)" value={newProject.tools} onChange={(e) => setNewProject({...newProject, tools: e.target.value})} required />
                 <input style={{ width: '48%', flexGrow: 0 }} type="text" placeholder="Image URL (e.g. /images/callhq.png)" value={newProject.image} onChange={(e) => setNewProject({...newProject, image: e.target.value})} required />
-                <input style={{ width: '48%', flexGrow: 0 }} type="text" placeholder="Live Link / GitHub Repo" value={newProject.link} onChange={(e) => setNewProject({...newProject, link: e.target.value})} required />
+                <input style={{ width: '48%', flexGrow: 0 }} type="text" placeholder="GitHub Link" value={newProject.github_link} onChange={(e) => setNewProject({...newProject, github_link: e.target.value})} />
+                <input style={{ width: '48%', flexGrow: 0 }} type="text" placeholder="Live Link" value={newProject.live_link} onChange={(e) => setNewProject({...newProject, live_link: e.target.value})} />
                 <input style={{ width: '48%', flexGrow: 0 }} type="number" placeholder="Sort Order" value={newProject.sort_order} onChange={(e) => setNewProject({...newProject, sort_order: parseInt(e.target.value)})} />
-                <button type="submit" className="admin-btn" style={{ width: '100%' }}>Add Project</button>
+                <button type="submit" className="admin-btn" style={{ width: '100%' }}>{editingProjectId ? "Update Project" : "Add Project"}</button>
+                {editingProjectId && (
+                  <button type="button" className="admin-btn" onClick={() => {
+                    setEditingProjectId(null);
+                    setNewProject({ title: "", category: "", tools: "", image: "", github_link: "", live_link: "", sort_order: 0 });
+                  }} style={{ width: '100%', background: '#555', marginTop: '10px' }}>Cancel Edit</button>
+                )}
               </form>
             </div>
             <div className="admin-table-container">
@@ -448,6 +473,7 @@ const AdminDashboard = () => {
                       <td>{project.title}</td>
                       <td>{project.category}</td>
                       <td>
+                        <button className="admin-btn-small" style={{ marginRight: '10px' }} onClick={() => handleEditProjectClick(project)}>Edit</button>
                         <button className="admin-btn-small" style={{ borderColor: 'red', color: 'red' }} onClick={() => handleDeleteProject(project.id)}>Delete</button>
                       </td>
                     </tr>

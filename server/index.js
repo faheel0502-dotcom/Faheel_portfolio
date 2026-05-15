@@ -12,15 +12,26 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 // Create MySQL connection pool
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '', // You will need to put your MySQL password in .env
-  database: process.env.DB_NAME || 'portfolio_db',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
+const poolConfig = process.env.DATABASE_URL 
+  ? {
+      uri: process.env.DATABASE_URL,
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0
+    }
+  : {
+      host: process.env.DB_HOST || 'localhost',
+      port: process.env.DB_PORT || 3306,
+      user: process.env.DB_USER || 'root',
+      password: process.env.DB_PASSWORD || '', // You will need to put your MySQL password in .env
+      database: process.env.DB_NAME || 'portfolio_db',
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
+      ssl: process.env.DB_HOST && process.env.DB_HOST.includes('tidbcloud.com') ? { minVersion: 'TLSv1.2', rejectUnauthorized: true } : undefined
+    };
+
+const pool = mysql.createPool(poolConfig);
 
 // Test Database Connection
 pool.getConnection()
@@ -165,13 +176,27 @@ app.get('/api/projects', async (req, res) => {
 
 // Add project
 app.post('/api/admin/projects', authenticateToken, async (req, res) => {
-  const { title, category, tools, image, link, sort_order } = req.body;
+  const { title, category, tools, image, github_link, live_link, sort_order } = req.body;
   try {
     await pool.query(
-      'INSERT INTO projects (title, category, tools, image, link, sort_order) VALUES (?, ?, ?, ?, ?, ?)',
-      [title, category, tools, image, link, sort_order || 0]
+      'INSERT INTO projects (title, category, tools, image, github_link, live_link, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [title, category, tools, image, github_link, live_link, sort_order || 0]
     );
     res.json({ success: true, message: 'Project added!' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Update project
+app.put('/api/admin/projects/:id', authenticateToken, async (req, res) => {
+  const { title, category, tools, image, github_link, live_link, sort_order } = req.body;
+  try {
+    await pool.query(
+      'UPDATE projects SET title = ?, category = ?, tools = ?, image = ?, github_link = ?, live_link = ?, sort_order = ? WHERE id = ?',
+      [title, category, tools, image, github_link, live_link, sort_order || 0, req.params.id]
+    );
+    res.json({ success: true, message: 'Project updated!' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

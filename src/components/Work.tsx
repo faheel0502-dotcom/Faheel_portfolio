@@ -9,7 +9,8 @@ interface ProjectItem {
   category: string;
   tools: string;
   image: string;
-  link: string;
+  github_link?: string;
+  live_link?: string;
 }
 
 const Work = () => {
@@ -20,7 +21,8 @@ const Work = () => {
       category: "College Food Ordering App",
       tools: "React.js, Node.js, MySQL",
       image: "/images/callhq.png",
-      link: "https://github.com/faheel0502-dotcom/Crescent_Canteen",
+      github_link: "https://github.com/faheel0502-dotcom/Crescent_Canteen",
+      live_link: "#",
     },
     {
       id: 2,
@@ -28,7 +30,8 @@ const Work = () => {
       category: "Student Marketplace Platform",
       tools: "React.js, Node.js, MySQL",
       image: "/images/whatsapp.png",
-      link: "#",
+      github_link: "#",
+      live_link: "#",
     },
     {
       id: 3,
@@ -36,7 +39,8 @@ const Work = () => {
       category: "Smart Traffic Navigation App",
       tools: "HTML, CSS, Node.js, Weather API",
       image: "/images/broki.png",
-      link: "#",
+      github_link: "#",
+      live_link: "#",
     },
     {
       id: 4,
@@ -44,7 +48,8 @@ const Work = () => {
       category: "Figma UI/UX Design",
       tools: "Figma, UI/UX",
       image: "/images/orrdr.png",
-      link: "#",
+      github_link: "#",
+      live_link: "#",
     },
   ]);
 
@@ -134,13 +139,17 @@ const Work = () => {
                           <span className="tools-label">Tools & Features</span>
                           <p>{project.tools}</p>
                         </div>
+                        <div className="carousel-project-links" style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>
+                          {project.github_link && <a href={project.github_link} target="_blank" data-cursor="disable" style={{ display: 'inline-block', padding: '10px 20px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '30px', color: '#fff', textDecoration: 'none', fontSize: '14px', transition: '0.3s' }}>GitHub Repo</a>}
+                          {project.live_link && <a href={project.live_link} target="_blank" data-cursor="disable" style={{ display: 'inline-block', padding: '10px 20px', background: '#fff', color: '#000', borderRadius: '30px', textDecoration: 'none', fontSize: '14px', fontWeight: 'bold', transition: '0.3s' }}>Live Project</a>}
+                        </div>
                       </div>
                     </div>
                     <div className="carousel-image-wrapper">
                       <WorkImage
                         image={project.image}
                         alt={project.title}
-                        link={project.link}
+                        link={project.live_link || project.github_link}
                       />
                     </div>
                   </div>
