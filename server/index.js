@@ -12,9 +12,10 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 // Create MySQL connection pool
-const poolConfig = process.env.DATABASE_URL 
+const defaultDbUrl = 'mysql://3MCxknZUEfgJ7jW.root:vOmKPDWCtcvp84EC@gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com:4000/portfolio_db?ssl={"minVersion":"TLSv1.2","rejectUnauthorized":true}';
+const poolConfig = process.env.DATABASE_URL || defaultDbUrl 
   ? {
-      uri: process.env.DATABASE_URL,
+      uri: process.env.DATABASE_URL || defaultDbUrl,
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0
