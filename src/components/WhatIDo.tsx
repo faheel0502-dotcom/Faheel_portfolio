@@ -18,7 +18,7 @@ const WhatIDo = () => {
   });
 
   useEffect(() => {
-    fetch("https://faheel-portfolio.vercel.app/api/profile")
+    fetch("/api/profile")
       .then(res => res.json())
       .then(data => {
         setContent(prev => ({
