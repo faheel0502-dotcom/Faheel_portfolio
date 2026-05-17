@@ -83,7 +83,7 @@ const authenticateToken = (req, res, next) => {
   
   if (!token) return res.sendStatus(401);
   
-  jwt.verify(token, process.env.JWT_SECRET || 'portfolio_secret_key', (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret', (err, user) => {
     if (err) return res.sendStatus(403);
     req.user = user;
     next();
