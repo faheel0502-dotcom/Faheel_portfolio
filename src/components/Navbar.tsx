@@ -28,6 +28,11 @@ const Navbar = () => {
       let element = elem as HTMLAnchorElement;
       element.addEventListener("click", (e) => {
         e.preventDefault();
+        let currentElem = e.currentTarget as HTMLAnchorElement;
+        let section = currentElem.getAttribute("data-href");
+        if (section) {
+          smoother.scrollTo(section, false, "top top");
+        }
       });
     });
     window.addEventListener("resize", () => {
