@@ -30,6 +30,11 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Connect</h4>
             <p>
+              <a href="tel:+919790860275" data-cursor="disable">
+                +91 979 086 0275
+              </a>
+            </p>
+            <p>
               <a
                 href={profileData.contact_linkedin_url}
                 target="_blank"
